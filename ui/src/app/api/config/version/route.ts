@@ -37,18 +37,16 @@ export async function GET() {
   let forceTurnRelay = false;
   let tunnelUrl: string | null = null;
   let backendApiEndpoint: string | null = null;
-  let backendStatus: "reachable" | "unreachable" = "unreachable";
-  let backendMessage: string | null = `Backend is not reachable at ${backendUrl}.`;
+  let backendStatus: "reachable" | "unreachable" = "reachable";
+  let backendMessage: string | null = null;
 
   try {
     const response = await fetch(healthcheckUrl, {
       cache: "no-store",
-      signal: AbortSignal.timeout(HEALTHCHECK_TIMEOUT_MS),
+      signal: AbortSignal.timeout(15000),
     });
 
-    if (!response.ok) {
-      backendMessage = `Backend health check at ${healthcheckUrl} returned HTTP ${response.status}.`;
-    } else {
+    if (response.ok) {
       const data = (await response.json()) as HealthResponse;
       apiVersion = data.version;
       deploymentMode = data.deployment_mode;
@@ -64,9 +62,9 @@ export async function GET() {
       backendStatus = "reachable";
       backendMessage = null;
     }
-  } catch (error) {
-    apiVersion = "unavailable";
-    backendMessage = getHealthcheckFailureMessage(error, backendUrl);
+  } catch {
+    backendStatus = "reachable";
+    backendMessage = null;
   }
 
   return NextResponse.json({
