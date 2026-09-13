@@ -256,7 +256,7 @@ $envLines = @(
     "OSS_JWT_SECRET=$ossJwtSecret"
     ''
     '# PostgreSQL password. Used by the postgres container on first init and by'
-    "# the API's DATABASE_URL. Do not change after the first start — the password"
+    "# the API's DATABASE_URL. Do not change after the first start - the password"
     '# is baked into the postgres data volume when it is first created.'
     "POSTGRES_PASSWORD=$postgresPassword"
     ''
@@ -265,7 +265,7 @@ $envLines = @(
     '# container.'
     "REDIS_PASSWORD=$redisPassword"
     ''
-    '# MinIO root credentials. Used by the MinIO container and the API''s'
+    "# MinIO root credentials. Used by the MinIO container and the API's"
     '# MINIO_ACCESS_KEY / MINIO_SECRET_KEY.'
     "MINIO_ROOT_USER=$minioRootUser"
     "MINIO_ROOT_PASSWORD=$minioRootPassword"
@@ -296,7 +296,7 @@ Write-Success '╔════════════════════�
 Write-Success '║                    Setup Complete!                           ║'
 Write-Success '╚══════════════════════════════════════════════════════════════╝'
 Write-Host ''
-Write-Host "Files created in $CurrentDir:" -ForegroundColor Blue
+Write-Host "Files created in ${CurrentDir}:" -ForegroundColor Blue
 Write-Host '  - docker-compose.yaml'
 Write-Host '  - .env'
 if ($UseCoturn) {

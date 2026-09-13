@@ -33,8 +33,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dograh",
-  description: "Open Source Voice Assistant Workflow Builder",
+  title: "Call Mitra - Voice AI Platform",
+  description: "Automated Voice AI Agent Platform for Phone Calls & Workflows",
 };
 
 export default function RootLayout({

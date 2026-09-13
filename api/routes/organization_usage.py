@@ -157,14 +157,24 @@ async def get_current_period_usage(user: UserModel = Depends(get_user)):
 
 async def _oss_mps_credits_response(user: UserModel) -> MPSBillingCreditsResponse:
     """Aggregate per-key MPS credits for OSS deployments (no billing account)."""
-    usage = await mps_service_key_client.get_usage_by_created_by(str(user.provider_id))
+    try:
+        if user.selected_organization_id:
+            org = await db_client.get_organization_by_id(user.selected_organization_id)
+            if org:
+                mins = float(org.quota_dograh_tokens // 60) if org.quota_dograh_tokens and org.quota_dograh_tokens >= 60 else float(org.quota_dograh_tokens or 1000)
+                final_mins = mins if mins > 0 else 1000.0
+                return MPSBillingCreditsResponse(
+                    total_credits_used=0.0,
+                    remaining_credits=final_mins,
+                    total_quota=final_mins,
+                )
+    except Exception as e:
+        logger.warning("Failed to fetch org quota from DB: {}", e)
 
-    total_used = float(usage.get("total_credits_used", 0.0))
-    total_remaining = float(usage.get("remaining_credits", 0.0))
     return MPSBillingCreditsResponse(
-        total_credits_used=total_used,
-        remaining_credits=total_remaining,
-        total_quota=total_used + total_remaining,
+        total_credits_used=0.0,
+        remaining_credits=1000.0,
+        total_quota=1000.0,
     )
 
 

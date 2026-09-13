@@ -266,33 +266,41 @@ export default function BillingPage() {
             </div>
 
             {isOssMode && (
-                <div className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/30">
-                    <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-600 dark:text-amber-400" />
-                    <div className="text-sm text-amber-900 dark:text-amber-200">
-                        <p className="font-medium">Credit purchases are unavailable in OSS mode</p>
-                        <p className="mt-1">
-                            You can&apos;t purchase credits from this self-hosted app. Sign up and
-                            purchase credits at{" "}
-                            <a
-                                href="https://app.dograh.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 font-medium underline underline-offset-2"
-                            >
-                                app.dograh.com
-                                <ExternalLink className="h-3 w-3" />
-                            </a>
-                            . Then add the generated service key in{" "}
-                            <Link
-                                href="/model-configurations"
-                                className="font-medium underline underline-offset-2"
-                            >
-                                Model Configurations
-                            </Link>
-                            . Usage for that service key is visible in app.dograh.com.
-                        </p>
-                    </div>
-                </div>
+                <Card className="border-primary/50 bg-primary/5">
+                    <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                            <CardTitle className="text-xl font-bold">💰 Prepaid Voice Plan</CardTitle>
+                            <Badge variant="default" className="text-sm px-3 py-1">₹2,500 / 1,000 Minutes</Badge>
+                        </div>
+                        <CardDescription>
+                            Get 1,000 minutes (60,000 seconds) of AI Voice Agent call usage with auto-stop quota protection.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div className="space-y-1">
+                            <p className="text-sm font-semibold text-foreground">Payment Details:</p>
+                            <p className="text-xs text-muted-foreground">
+                                • <strong>GPay / PhonePe / PayTM UPI Number</strong>: <span className="font-bold text-foreground bg-amber-100 dark:bg-amber-900/50 px-2 py-0.5 rounded border border-amber-300 dark:border-amber-800">9390487233</span><br/>
+                                • Rate: ₹2,500 per 1,000 minutes (60,000 seconds)<br/>
+                                • Instant quota activation upon payment verification
+                            </p>
+                        </div>
+                        <Button 
+                            className="w-full md:w-auto font-semibold bg-emerald-600 hover:bg-emerald-700 text-white"
+                            onClick={() => {
+                                const upiUri = "upi://pay?pa=9390487233@upi&pn=Call%20Mitra%20AI&am=2500&cu=INR&tn=Call%20Mitra%20Recharge";
+                                if (navigator.clipboard) {
+                                    navigator.clipboard.writeText("9390487233");
+                                    toast.success("UPI Number 9390487233 copied to clipboard!");
+                                }
+                                window.location.href = upiUri;
+                            }}
+                        >
+                            <CreditCard className="h-4 w-4 mr-2" />
+                            Pay ₹2,500 via UPI (9390487233)
+                        </Button>
+                    </CardContent>
+                </Card>
             )}
 
             <div className="grid gap-4 md:grid-cols-2">

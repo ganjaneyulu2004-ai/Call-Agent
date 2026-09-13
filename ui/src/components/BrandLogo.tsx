@@ -18,21 +18,21 @@ export function BrandLogo({
   if (mark) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-mark.png" alt="Dograh" className={cn("w-auto select-none", className)} />
+      <img src="/call-mitra-mark.png" alt="Call Mitra" className={cn("w-auto select-none rounded-lg", className)} />
     );
   }
   if (inverse) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("w-auto select-none", className)} />
+      <img src="/call-mitra-logo.png" alt="Call Mitra" className={cn("w-auto select-none rounded-lg", className)} />
     );
   }
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo.png" alt="Dograh" className={cn("block w-auto select-none dark:hidden", className)} />
+      <img src="/call-mitra-logo.png" alt="Call Mitra" className={cn("block w-auto select-none rounded-lg dark:hidden", className)} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("hidden w-auto select-none dark:block", className)} />
+      <img src="/call-mitra-logo.png" alt="Call Mitra" className={cn("hidden w-auto select-none rounded-lg dark:block", className)} />
     </>
   );
 }
