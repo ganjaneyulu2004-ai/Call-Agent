@@ -23,11 +23,20 @@ export function getServerBackendUrl() {
  * resolveWebhookBaseUrl.
  */
 export function resolveBrowserBackendUrl(backendApiEndpoint?: string | null): string {
-    return (
-        process.env.NEXT_PUBLIC_BACKEND_URL ||
-        backendApiEndpoint ||
-        (typeof window !== 'undefined' ? window.location.origin : '')
-    );
+    if (process.env.NEXT_PUBLIC_BACKEND_URL) {
+        return process.env.NEXT_PUBLIC_BACKEND_URL;
+    }
+    if (backendApiEndpoint && backendApiEndpoint.length > 0) {
+        return backendApiEndpoint;
+    }
+    if (typeof window !== 'undefined') {
+        const hostname = window.location.hostname;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return `${window.location.protocol}//${hostname}:8000`;
+        }
+        return window.location.origin;
+    }
+    return 'http://localhost:8000';
 }
 
 export const createClientConfig: CreateClientConfig = (config) => {

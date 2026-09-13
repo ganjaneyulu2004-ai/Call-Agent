@@ -117,14 +117,10 @@ export const useWebSocketRTC = ({ workflowId, workflowRunId, accessToken, initia
     const interruptWarningShownRef = useRef(false);
 
     const getWebSocketUrl = useCallback(() => {
-        // Single source of truth for the browser→API base URL: the centrally
-        // resolved API client config (NEXT_PUBLIC_BACKEND_URL → the backend
-        // endpoint reported by /health → window.location.origin), seeded by
-        // createClientConfig and upgraded by AppConfigProvider. The backend now
-        // reports the endpoint it runs on, so the old localhost autodetect that
-        // forced :8000 (back when an unset endpoint fell through to the UI origin)
-        // is no longer needed.
-        const baseUrl = client.getConfig().baseUrl || resolveBrowserBackendUrl();
+        let baseUrl = client.getConfig().baseUrl || resolveBrowserBackendUrl();
+        if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            baseUrl = `${window.location.protocol}//${window.location.hostname}:8000`;
+        }
         const wsUrl = baseUrl.replace(/^http/, 'ws');
         return `${wsUrl}/api/v1/ws/signaling/${workflowId}/${workflowRunId}?token=${accessToken}`;
     }, [workflowId, workflowRunId, accessToken]);
