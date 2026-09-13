@@ -2,18 +2,14 @@
 
 import { AlertTriangle, Menu, RefreshCw } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import posthog from "posthog-js";
 import React, { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
-import { PostHogEvent } from "@/constants/posthog-events";
 import { useAppConfig } from "@/context/AppConfigContext";
 import { LeadFormsProvider } from "@/context/LeadFormsContext";
 
 import { AppSidebar } from "./AppSidebar";
-import { GitHubStarBadge } from "./GitHubStarBadge";
 
 function AppHeader() {
   const { toggleSidebar } = useSidebar();

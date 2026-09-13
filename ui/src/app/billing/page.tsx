@@ -5,8 +5,6 @@ import {
     ChevronRight,
     CircleDollarSign,
     CreditCard,
-    ExternalLink,
-    Info,
     RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
@@ -285,7 +283,7 @@ export default function BillingPage() {
                                 • Instant quota activation upon payment verification
                             </p>
                         </div>
-                        <Button 
+                        <Button
                             className="w-full md:w-auto font-semibold bg-emerald-600 hover:bg-emerald-700 text-white"
                             onClick={() => {
                                 const upiUri = "upi://pay?pa=9390487233@upi&pn=Call%20Mitra%20AI&am=2500&cu=INR&tn=Call%20Mitra%20Recharge";
