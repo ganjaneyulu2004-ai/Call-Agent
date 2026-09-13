@@ -1,0 +1,15 @@
+{
+  "name": "call-mitra",
+  "version": "1.46.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd ui && npm run dev",
+    "build": "cd ui && npm run build",
+    "start": "cd ui && npm start"
+  },
+  "dependencies": {
+    "next": "^15.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
